@@ -1,6 +1,6 @@
 {
   "name": "Heineken Game",
-  "short_name": "GameH",
+  "short_name": "Verdade ou Desafio?",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#000000",
