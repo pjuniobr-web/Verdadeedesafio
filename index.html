@@ -50,9 +50,8 @@
         .card-back { position: absolute; inset: 0; backface-visibility: hidden; background: #1a1a1a url('logo.png') no-repeat center/contain; border-radius: 8px; border: 2px solid #ff4757; }
         .card-front { position: absolute; inset: 0; backface-visibility: hidden; background: #fff; color: #000; transform: rotateY(180deg); border-radius: 8px; display: flex; align-items: center; justify-content: center; padding: 5px; font-size: 9px; font-weight: bold; text-align: center; border: 2px solid #333; }
 
-        /* AJUSTE FINAL: Garrafa descida para alinhar a base com os nomes laterais */
-        #bottle { width: 110px; height: 110px; background: url('garrafa.png') no-repeat center/contain; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); margin-top: 105px; }
-        .btn-spin { width: 200px; background:#00a884; margin-top: 115px; z-index: 100; }
+        /* AJUSTE CIRÚRGICO DA GARRAFA: Mantendo o botão original no lugar */
+        #bottle { width: 110px; height: 110px; background: url('garrafa.png') no-repeat center/contain; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); margin-top: 90px; }
         
         #modal { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 12000; display: none; align-items: center; justify-content: center; padding: 20px; }
         .modal-body { background: #fff; color: #000; width: 310px; min-height: 400px; border-radius: 25px; border: 8px solid #ff4757; padding: 30px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center; }
@@ -88,7 +87,7 @@
         <div class="player-slot" id="slot-3"><div class="card-deck" onclick="drawCard(3)"><div class="card-inner"><div class="card-back"></div><div class="card-front">?</div></div></div><div class="name-tag" id="t3"></div></div>
         <div class="player-slot" id="slot-4"><div class="card-deck" onclick="drawCard(4)"><div class="card-inner"><div class="card-back"></div><div class="card-front">?</div></div></div><div class="name-tag" id="t4"></div></div>
         <div id="bottle"></div>
-        <button class="btn-main btn-spin" onclick="spin()">GIRAR GARRAFA 🍾</button>
+        <button class="btn-main" style="width:200px; background:#00a884; margin-top:40px;" onclick="spin()">GIRAR GARRAFA 🍾</button>
     </div>
 
     <div id="rules-modal">
@@ -117,9 +116,15 @@
     </div>
 
     <script>
-        const cLeve = ["VERDADE: Qual seu primeiro beijo?", "DESAFIO: Imite um gato!", "VERDADE: Qual mania te irrita?", "VERDADE: Qual seu maior sonho?", "DESAFIO: 10 flexões agora!", "VERDADE: Qual seu apelido?", "DESAFIO: Dance sem música!", "VERDADE: Cor favorita?", "DESAFIO: Fale com sotaque!", "VERDADE: Filme favorito?", "DESAFIO: Equilibre algo na cabeça!", "VERDADE: Comida que detesta?", "DESAFIO: Faça uma careta!", "VERDADE: Medo bobo?", "DESAFIO: Pule em um pé só!", "VERDADE: Doce ou salgado?", "DESAFIO: Imite um robô!", "VERDADE: Cantor favorito?", "DESAFIO: Mande um coração pro 3º contato!", "VERDADE: Já chorou em filme?"];
-        const cMedio = ["VERDADE: Quem aqui você beijaria?", "DESAFIO: Mande 'oi sumido' no Whats.", "VERDADE: Já stalkeou ex?", "DESAFIO: Deixe lerem sua última conversa!", "VERDADE: Maior mico?", "DESAFIO: Fique de mãos dadas por 2 rodadas!", "VERDADE: Segredo guardado?", "DESAFIO: Poste foto zoada!", "VERDADE: Já mentiu hoje?", "DESAFIO: Dance funk por 30s!", "VERDADE: Quem é mais bonito aqui?", "DESAFIO: Cheire o pé de alguém!", "VERDADE: Já beijou por pena?", "DESAFIO: Declare amor pra uma cadeira!", "VERDADE: Beijo triplo?", "DESAFIO: Troque de camisa com alguém!", "VERDADE: Atração por alguém aqui?", "DESAFIO: Finja desfile de moda!", "VERDADE: Vergonha alheia?", "DESAFIO: Peça desculpas a um objeto!"];
-        const cSafado = ["DESAFIO: Beijo de língua no escolhido!", "DESAFIO: Selinho de 5 seg.", "DESAFIO: Mordida na orelha!", "VERDADE: Posição favorita?", "DESAFIO: Tire uma peça de roupa!", "VERDADE: Lugar mais estranho?", "DESAFIO: Sente no colo por 1 rodada!", "VERDADE: Já mandou nudes?", "DESAFIO: Áudio sensual pra alguém!", "VERDADE: Luz acesa ou apagada?", "DESAFIO: Chupão no pescoço!", "VERDADE: Sonho erótico com alguém aqui?", "DESAFIO: Simule gemido alto!", "VERDADE: Parte do corpo favorita?", "DESAFIO: Sussurro safado no ouvido!", "VERDADE: Já usou brinquedos?", "DESAFIO: Gelo no corpo!", "VERDADE: Já fez a três?", "DESAFIO: Beije o pescoço de alguém!", "VERDADE: Tesão instantâneo?", "DESAFIO: Morda o lábio de alguém!", "VERDADE: Já fez em público?", "DESAFIO: Strip-tease 15s!", "VERDADE: Tapa ou carinho?", "DESAFIO: Beije a barriga de alguém!"];
+        const cLeve = [
+            "VERDADE: Qual seu apelido de infância?", "DESAFIO: Imite um gato por 20 seg.", "VERDADE: Qual sua cor favorita?", "DESAFIO: Tente lamber seu nariz.", "VERDADE: Doce ou salgado?", "DESAFIO: Dance sem música por 30s.", "VERDADE: Qual seu maior medo bobo?", "DESAFIO: Conte uma piada ruim.", "VERDADE: Já chorou em desenho animado?", "DESAFIO: Faça uma careta engraçada.", "VERDADE: Qual sua comida favorita?", "DESAFIO: Equilibre um objeto na cabeça.", "VERDADE: Qual sua música de chuveiro?", "DESAFIO: Finja ser um robô por 1 min.", "VERDADE: Gosta de frio ou calor?", "DESAFIO: Pule em um pé só 10 vezes.", "VERDADE: Qual seu filme favorito?", "DESAFIO: Fale com sotaque até sua vez.", "VERDADE: Qual sua mania mais estranha?", "DESAFIO: Desenhe algo com a mão esquerda.", "VERDADE: Qual estação do ano prefere?", "DESAFIO: Imite um famoso que todos conheçam.", "VERDADE: Qual animal você seria?", "DESAFIO: Tente tocar os pés sem dobrar o joelho.", "VERDADE: Qual seu hobby favorito?", "DESAFIO: Faça um elogio para a pessoa à esquerda.", "VERDADE: Qual superpoder você queria ter?", "DESAFIO: Tente não piscar por 30 segundos.", "VERDADE: Já mentiu sobre a idade?", "DESAFIO: Cante o refrão da sua música favorita.", "VERDADE: Qual sua série preferida?", "DESAFIO: Finja que é um mestre de obras.", "VERDADE: Qual fruta você odeia?", "DESAFIO: Faça 5 flexões.", "VERDADE: Você é organizado ou bagunceiro?"
+        ];
+        const cMedio = [
+            "VERDADE: Quem aqui você beijaria?", "DESAFIO: Mande um 'oi' para um ex.", "VERDADE: Qual seu maior mico?", "DESAFIO: Deixe alguém ler sua última conversa.", "VERDADE: Já stalkeou alguém hoje?", "DESAFIO: Poste uma foto estranha nos Stories.", "VERDADE: Qual seu segredo mais engraçado?", "DESAFIO: Dance funk por 30 segundos.", "VERDADE: Quem é a pessoa mais bonita aqui?", "DESAFIO: Ligue para um amigo e conte uma mentira.", "VERDADE: Já fingiu estar doente para sair?", "DESAFIO: Cheire o pé de alguém ao lado.", "VERDADE: Qual sua maior vergonha alheia?", "DESAFIO: Deixe alguém postar no seu Twitter/Face.", "VERDADE: Qual parte do seu corpo você mais gosta?", "DESAFIO: Coma algo misturado por outros jogadores.", "VERDADE: Qual foi seu pior encontro?", "DESAFIO: Fale a maior qualidade de cada um na roda.", "VERDADE: Já mentiu no Verdade ou Desafio?", "DESAFIO: Tente seduzir uma almofada.", "VERDADE: Qual a coisa mais louca que já fez?", "DESAFIO: Fique de mãos dadas com alguém por 2 rodadas.", "VERDADE: Qual seu maior defeito?", "DESAFIO: Faça uma declaração de amor para uma cadeira.", "VERDADE: Você já beijou alguém hoje?", "DESAFIO: Deixe alguém bagunçar seu cabelo.", "VERDADE: Qual sua maior fantasia não sexual?", "DESAFIO: Beba um copo de água sem usar as mãos.", "VERDADE: Qual sua opinião sobre traição?", "DESAFIO: Fique sem sapatos até o fim do jogo.", "VERDADE: O que você faria se ganhasse na loteria?", "DESAFIO: Tente fazer um espacate.", "VERDADE: Qual sua primeira impressão de mim?", "DESAFIO: Peça desculpas para a parede."
+        ];
+        const cSafado = [
+            "DESAFIO: Beijo de língua no escolhido!", "DESAFIO: Selinho de 5 seg.", "DESAFIO: Mordida na orelha!", "VERDADE: Qual sua posição favorita?", "DESAFIO: Tire uma peça de roupa!", "VERDADE: Lugar mais estranho que já fez?", "DESAFIO: Sente no colo por 1 rodada!", "VERDADE: Já mandou nudes?", "DESAFIO: Áudio sensual para alguém!", "VERDADE: Luz acesa ou apagada?", "DESAFIO: Chupão no pescoço de alguém!", "VERDADE: Já teve sonho erótico com alguém aqui?", "DESAFIO: Simule um gemido alto!", "VERDADE: O que te dá tesão instantâneo?", "DESAFIO: Sussurre algo safado no ouvido!", "VERDADE: Já usou brinquedos?", "DESAFIO: Deixe alguém passar gelo no seu corpo.", "VERDADE: Já fez a três?", "DESAFIO: Beije o pescoço de alguém!", "VERDADE: Prefere tapa ou carinho?", "DESAFIO: Morda o lábio de alguém!", "VERDADE: Gosta de ser dominado ou dominar?", "DESAFIO: Faça um strip-tease de 15 segundos.", "VERDADE: Qual sua maior fantasia secreta?", "DESAFIO: Fique apenas de roupa íntima por 1 rodada.", "VERDADE: Qual foi seu melhor experiência?", "DESAFIO: Beije a barriga de alguém.", "VERDADE: Já pensou em outra pessoa enquanto fazia?", "DESAFIO: Desabotoe um botão de alguém com a boca.", "VERDADE: Faria com alguém desta roda?", "DESAFIO: Passe a língua no pescoço de alguém.", "VERDADE: Qual sua zona erógena preferida?", "DESAFIO: Faça uma massagem sensual em alguém.", "VERDADE: Já enviou vídeo fazendo?", "DESAFIO: Sente de costas para alguém por 1 rodada."
+        ];
         const punicoes = ["PUNIÇÃO: Beba 2 copos de água!", "PUNIÇÃO: Faça 20 agachamentos!", "PUNIÇÃO: Mico escolhido pela roda!", "PUNIÇÃO: Coma uma colher de farinha!", "PUNIÇÃO: Fique estátua por 1 min!"];
 
         let pCount = 4, rotation = 0, busy = false, validTurns = 0, lastId = null;
@@ -162,6 +167,7 @@
                 let angle = rotation % 360;
                 let sel = null;
 
+                // FÍSICA CALIBRADA PELOS SEUS RISCOS (Fatias de 40 graus)
                 if (angle >= 340 || angle < 20) sel = 1;       
                 else if (angle >= 70 && angle < 110) sel = 2;   
                 else if (angle >= 160 && angle < 200) sel = 3;  
@@ -181,7 +187,7 @@
                     lastId = sel;
                 } else {
                     document.getElementById('m-header').innerText = "PASSOU A VEZ";
-                    document.getElementById('m-text').innerText = "A garrafa parou reta no vazio! Gira de novo.";
+                    document.getElementById('m-text').innerText = "A garrafa parou nas áreas vazias entre os jogadores! Gira de novo.";
                     document.getElementById('btn-desistir').style.display = 'none';
                     document.getElementById('modal').style.display = 'flex';
                     lastId = null;
@@ -193,7 +199,7 @@
         function drawCard(num) {
             if (!document.getElementById('slot-'+num).classList.contains('active')) return;
             document.getElementById('slot-'+num).querySelector('.card-deck').classList.add('flipped');
-            let pool = (validTurns <= 12) ? cLeve : (validTurns <= 24) ? cMedio : [...cMedio, ...cSafado];
+            let pool = (validTurns <= 6) ? cLeve : (validTurns <= 12) ? cMedio : [...cMedio, ...cSafado];
             let c = pool[Math.floor(Math.random()*pool.length)].split(':');
             setTimeout(() => {
                 document.getElementById('m-header').innerText = c[0];
@@ -207,4 +213,19 @@
             document.getElementById('m-header').innerText = "ELIMINADO!";
             const p = punicoes[Math.floor(Math.random() * punicoes.length)];
             document.getElementById('m-text').innerText = "Você saiu do jogo! Cumpra: " + p.split(':')[1];
-            const active = document.querySelector('.player-slot.active
+            const active = document.querySelector('.player-slot.active');
+            if (active) active.style.display = 'none';
+            document.getElementById('btn-desistir').style.display = 'none';
+            const restantes = Array.from(document.querySelectorAll('.player-slot')).filter(s => s.style.display === 'flex');
+            if (restantes.length <= 1) {
+                setTimeout(() => { 
+                    document.getElementById('m-header').innerText = "VENCEDOR! 🔥";
+                    document.getElementById('m-text').innerText = "PARABÉNS VOCÊ É FODA!";
+                    setTimeout(() => { location.reload(); }, 4000);
+                }, 2000);
+            }
+        }
+        function closeM() { document.getElementById('modal').style.display = 'none'; }
+    </script>
+</body>
+</html>
